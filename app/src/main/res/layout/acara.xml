@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/bg_register"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_weight="0.74"
+        android:weightSum="1">
+
+        <Button
+            android:id="@+id/coveracara"
+            android:layout_width="161dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dip"
+            android:background="@null"
+            android:text="@string/btn_link_to_login"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            tools:text="Cover acara" />
+
+
+        <EditText
+            android:id="@+id/judul"
+            android:layout_width="319dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@color/input_register_bg"
+            android:hint="@string/hint_judul"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:inputType="textCapWords"
+            android:textColor="@color/input_register"
+            android:textColorHint="@color/input_register_hint"
+            tools:text="judul"
+            android:text="Judul" />
+
+        <EditText
+            android:id="@+id/penyelenggara"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@color/input_register_bg"
+            android:hint="@string/hint_email"
+            android:inputType="textPersonName"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="@color/input_register"
+            android:textColorHint="@color/input_register_hint"
+            tools:text="Penyelenggara"
+            android:text="Penyelenggara" />
+
+        <!-- Login Button -->
+
+        <EditText
+            android:id="@+id/hargatiket"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@color/input_register_bg"
+            android:hint="@string/hint_name"
+            android:inputType="textCapWords"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="@color/input_register"
+            android:textColorHint="@color/input_register_hint"
+            android:text="Harga Tiket"
+            tools:text="Harga Tiket" />
+
+        <EditText
+            android:id="@+id/hargatiket"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:background="@color/input_register_bg"
+            android:hint="@string/hint_name"
+            android:inputType="textCapWords"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="@color/input_register"
+            android:textColorHint="@color/input_register_hint"
+            android:text="Keterangan"
+            tools:text="Keterangan" />
+
+        <!-- Link to Login Screen -->
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/OKE"
+        android:layout_width="255dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dip"
+        android:background="?android:attr/statusBarColor"
+        android:text="@android:string/ok"
+        android:textColor="@color/white" />
+
+    <Button
+        android:id="@+id/batal"
+        android:layout_width="258dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dip"
+        android:background="?attr/actionModeSplitBackground"
+        android:text="@android:string/no"
+        android:textColor="@color/white" />
+
+</LinearLayout>
