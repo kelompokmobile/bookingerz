@@ -13,4 +13,14 @@
     <string name="welcome">Welcome</string>
     <string name="btn_logout">LOGOUT</string>
     <string name="name">Fullname</string>
+    <string name="tx_judul">JUDUL ACARA</string>
+    <string name="tx_penyelenggara">PENYELENGGARA</string>
+    <string name="tx_hargatiket">HARGA TIKET</string>
+    <string name="tx_ketacara">KETERANGAN</string>
+    <string name="btn_batal">BATAL</string>
+    <string name="tx_namalengkap">Nama Lengkap</string>
+    <string name="tx_notlp">No Telepon</string>
+    <string name="tx_tanggallahir">Tanggal Lahir</string>
+    <string name="btn_pp">Profil Picture</string>
+    <string name="btn_about">TENTANG APLIKASI</string>
 </resources>

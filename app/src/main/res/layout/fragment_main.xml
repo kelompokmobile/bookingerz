@@ -27,7 +27,7 @@
             android:textSize="24dp" />
 
         <TextView
-            android:id="@+id/email"
+            android:id="@+id/tx_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="13dp" />
