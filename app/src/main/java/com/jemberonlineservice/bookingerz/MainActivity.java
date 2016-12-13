@@ -43,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        txtName = (TextView) findViewById(R.id.name);
-        txtEmail = (TextView) findViewById(R.id.email);
+        txtName = (TextView) findViewById(R.id.tx_name);
+        txtEmail = (TextView) findViewById(R.id.tx_email);
         btnLogout = (Button) findViewById(R.id.btnLogout);
 
         db = new SQLiteHandler(getApplicationContext());
