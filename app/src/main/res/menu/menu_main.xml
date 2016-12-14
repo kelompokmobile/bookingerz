@@ -2,9 +2,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.jemberonlineservice.bookingerz.MainActivity">
+
+    <item
+        android:id="@+id/action_addevent"
+        android:orderInCategory="201"
+        android:title="@string/menu_addevent"
+        android:icon="@android:drawable/ic_media_play"
+        app:showAsAction="ifRoom" />
+
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />
+
 </menu>

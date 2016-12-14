@@ -1,111 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/bg_register"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="10dp"
     android:weightSum="1">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center"
-        android:orientation="vertical"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:layout_weight="0.74"
-        android:weightSum="1">
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:layout_height="100dp"
+                android:layout_width="100dp"
+                android:layout_gravity="center"
+                app:srcCompat="@android:drawable/ic_menu_add"
+                android:id="@+id/btn_addposter" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/tx_judulacara"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:padding="10dp"
+                    android:inputType="text"
+                    android:textColor="@color/input_register"
+                    android:textColorHint="@color/white"
+                    android:maxLines="1"
+                    android:hint="@string/tx_judul" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/tx_penyelenggara"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:inputType="text"
+                    android:padding="10dp"
+                    android:textColor="@color/input_register"
+                    android:textColorHint="@color/white"
+                    android:maxLines="1"
+                    android:hint="@string/tx_penyelenggara" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/tx_hargatiket"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:padding="10dp"
+                    android:textColor="@color/input_register"
+                    android:textColorHint="@color/white"
+                    android:maxLines="1"
+                    android:hint="@string/tx_hargatiket"
+                    android:inputType="number" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/tx_ketacara"
+                    android:layout_width="match_parent"
+                    android:layout_height="144dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="top|start"
+                    android:padding="10dp"
+                    android:textColor="@color/input_register"
+                    android:textColorHint="@color/white"
+                    android:hint="@string/tx_ketacara" />
+
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/coveracara"
-            android:layout_width="161dp"
+            android:id="@+id/btn_submitevent"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dip"
-            android:background="@null"
-            android:text="@string/btn_link_to_login"
-            android:textAllCaps="false"
+            android:layout_marginTop="20dip"
+            android:text="@string/btn_submitevent"
             android:textColor="@color/white"
-            android:textSize="15sp"
-            tools:text="Cover acara" />
+            android:background="?attr/actionModeSplitBackground" />
 
-
-        <EditText
-            android:id="@+id/tx_judul"
-            android:layout_width="319dp"
+        <Button
+            android:id="@+id/btn_batal"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@color/input_register_bg"
-            android:padding="10dp"
-            android:inputType="textCapWords"
-            android:textColor="@color/input_register"
-            android:textColorHint="@color/input_register_hint"
-            android:text="@string/tx_judul"
-            android:maxLines="1" />
-
-        <EditText
-            android:id="@+id/tx_penyelenggara"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@color/input_register_bg"
-            android:inputType="textPersonName"
-            android:padding="10dp"
-            android:textColor="@color/input_register"
-            android:textColorHint="@color/input_register_hint"
-            android:text="@string/tx_penyelenggara"
-            android:maxLines="1" />
-
-        <!-- Login Button -->
-
-        <EditText
-            android:id="@+id/tx_hargatiket"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@color/input_register_bg"
-            android:inputType="textCapWords"
-            android:padding="10dp"
-            android:textColor="@color/input_register"
-            android:textColorHint="@color/input_register_hint"
-            android:text="@string/tx_hargatiket"
-            android:maxLines="1" />
-
-        <EditText
-            android:id="@+id/tx_ketacara"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="10dp"
-            android:background="@color/input_register_bg"
-            android:inputType="textCapWords"
-            android:padding="10dp"
-            android:textColor="@color/input_register"
-            android:textColorHint="@color/input_register_hint"
-            android:text="@string/tx_ketacara"
-            android:maxLines="1" />
-
-        <!-- Link to Login Screen -->
+            android:layout_marginTop="20dip"
+            android:background="?attr/actionModeSplitBackground"
+            android:text="@string/btn_batal"
+            android:textColor="@color/white" />
 
     </LinearLayout>
-
-    <Button
-        android:id="@+id/OKE"
-        android:layout_width="255dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dip"
-        android:text="@android:string/ok"
-        android:textColor="@color/white"
-        android:background="?attr/actionModeSplitBackground" />
-
-    <Button
-        android:id="@+id/btn_batal"
-        android:layout_width="258dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dip"
-        android:background="?attr/actionModeSplitBackground"
-        android:text="@string/btn_batal"
-        android:textColor="@color/white" />
 
 </LinearLayout>

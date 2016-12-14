@@ -12,7 +12,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.content.Intent;
 
+import com.jemberonlineservice.bookingerz.activity.AddAcaraActivity;
 import com.jemberonlineservice.bookingerz.activity.LoginActivity;
+import com.jemberonlineservice.bookingerz.activity.SettingActivity;
 import com.jemberonlineservice.bookingerz.helper.SQLiteHandler;
 import com.jemberonlineservice.bookingerz.helper.SessionManager;
 
@@ -90,12 +92,19 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()){
+            case R.id.action_settings:
+                Intent isetting = new Intent(this, SettingActivity.class);
+                startActivity(isetting);
+                break;
+            case R.id.action_addevent:
+                Intent iaddevent = new Intent(this, AddAcaraActivity.class);
+                startActivity(iaddevent);
+                break;
+            default:
+                break;
         }
 
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 }

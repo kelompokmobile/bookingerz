@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">Bookingerz</string>
+    <string name="register_name">Register</string>
+    <string name="login_name">Login</string>
+    <string name="setting_name">Setting</string>
+    <string name="addacara_name">Add Event</string>
     <string name="action_settings">Settings</string>
 
     // RegisterLogin
@@ -17,10 +21,12 @@
     <string name="tx_penyelenggara">PENYELENGGARA</string>
     <string name="tx_hargatiket">HARGA TIKET</string>
     <string name="tx_ketacara">KETERANGAN</string>
-    <string name="btn_batal">BATAL</string>
+    <string name="btn_batal">CANCEL</string>
     <string name="tx_namalengkap">Nama Lengkap</string>
     <string name="tx_notlp">No Telepon</string>
     <string name="tx_tanggallahir">Tanggal Lahir</string>
     <string name="btn_pp">Profil Picture</string>
     <string name="btn_about">TENTANG APLIKASI</string>
+    <string name="menu_addevent">Add Event</string>
+    <string name="btn_submitevent">ADD</string>
 </resources>
