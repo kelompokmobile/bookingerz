@@ -29,4 +29,6 @@
     <string name="btn_about">TENTANG APLIKASI</string>
     <string name="menu_addevent">Add Event</string>
     <string name="btn_submitevent">ADD</string>
+    <string name="btn_datepicker">Tanggal</string>
+    <string name="btn_timepicker">Jam</string>
 </resources>

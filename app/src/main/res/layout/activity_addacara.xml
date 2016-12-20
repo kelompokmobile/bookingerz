@@ -85,6 +85,41 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/btn_datepicker"
+                        android:text="@string/btn_datepicker" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/btn_timepicker"
+                        android:text="@string/btn_timepicker" />
+
+                    <TextView
+                        android:id="@+id/tv_dateview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/tv_timeview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
                 <EditText
                     android:id="@+id/tx_ketacara"
                     android:layout_width="match_parent"
