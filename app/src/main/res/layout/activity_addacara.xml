@@ -24,8 +24,11 @@
                 android:layout_height="100dp"
                 android:layout_width="100dp"
                 android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
                 app:srcCompat="@android:drawable/ic_menu_add"
-                android:id="@+id/btn_addposter" />
+                android:id="@+id/btn_addposter"
+                android:contentDescription="@string/addacara_name" />
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -147,7 +150,8 @@
             android:layout_marginTop="20dip"
             android:text="@string/btn_submitevent"
             android:textColor="@color/white"
-            android:background="?attr/actionModeSplitBackground" />
+            android:background="?attr/actionModeSplitBackground"
+            tools:ignore="ButtonStyle" />
 
         <Button
             android:id="@+id/btn_batal"
@@ -156,7 +160,8 @@
             android:layout_marginTop="20dip"
             android:background="?attr/actionModeSplitBackground"
             android:text="@string/btn_batal"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            tools:ignore="ButtonStyle" />
 
     </LinearLayout>
 
