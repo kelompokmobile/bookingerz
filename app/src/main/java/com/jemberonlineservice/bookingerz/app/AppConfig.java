@@ -1,5 +1,7 @@
 package com.jemberonlineservice.bookingerz.app;
 
+import android.graphics.Bitmap;
+
 /**
  * Created by vmmod on 12/10/2016.
  */

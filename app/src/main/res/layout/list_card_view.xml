@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:cv_acara="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv_acara"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/card_margin"
+        android:elevation="3dp"
+        cv_acara:cardCornerRadius="@dimen/card_album_radius">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/album_cover_height"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:scaleType="fitXY"
+                android:id="@+id/iv_poster" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv_poster"
+                android:paddingLeft="@dimen/album_title_padding"
+                android:paddingRight="@dimen/album_title_padding"
+                android:paddingTop="@dimen/album_title_padding"
+                android:textColor="@color/album_title"
+                android:textSize="@dimen/album_title"
+                android:id="@+id/tv_jdl" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_jdl"
+                android:paddingBottom="@dimen/songs_count_padding_bottom"
+                android:paddingLeft="@dimen/album_title_padding"
+                android:paddingRight="@dimen/album_title_padding"
+                android:textSize="@dimen/songs_count"
+                android:id="@+id/tv_penyelenggara" />
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+</LinearLayout>
