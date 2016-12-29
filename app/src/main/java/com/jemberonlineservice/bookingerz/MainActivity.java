@@ -1,5 +1,8 @@
 package com.jemberonlineservice.bookingerz;
 
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.res.Resources;
 import android.graphics.Rect;
@@ -20,8 +23,10 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 import android.content.Intent;
+import android.widget.Toast;
 
 import com.jemberonlineservice.bookingerz.activity.AddAcaraActivity;
+import com.jemberonlineservice.bookingerz.activity.DetailAcaraActivity;
 import com.jemberonlineservice.bookingerz.activity.LoginActivity;
 import com.jemberonlineservice.bookingerz.activity.SettingActivity;
 import com.jemberonlineservice.bookingerz.app.Config;
@@ -50,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
 
     private Config config;
+    private Fragment fmdetailacara;
+    private Fragment fmcardview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +94,11 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    public void showDetailAcara(View v){
+        Intent intent = new Intent(MainActivity.this, DetailAcaraActivity.class);
+        startActivity(intent);
     }
 
     private void getData(){
@@ -251,6 +263,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_addevent:
                 Intent iaddevent = new Intent(this, AddAcaraActivity.class);
                 startActivity(iaddevent);
+                break;
+            case R.id.action_logout:
+                logoutUser();
                 break;
             default:
                 break;

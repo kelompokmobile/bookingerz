@@ -38,6 +38,10 @@
             android:name=".activity.SettingActivity"
             android:label="@string/setting_name"
             android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.DetailAcaraActivity"
+            android:label="@string/detailacara_name"
+            android:launchMode="singleTop" />
     </application>
 
 </manifest>
