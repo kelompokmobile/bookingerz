@@ -33,4 +33,5 @@
     <string name="btn_submitevent">ADD</string>
     <string name="btn_datepicker">Tanggal</string>
     <string name="btn_timepicker">Jam</string>
+    <string name="btn_booking">ENTER</string>
 </resources>

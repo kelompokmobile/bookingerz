@@ -21,12 +21,24 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "android_api";
 
     private static final String TABLE_USER = "user";
+    private static final String TABLE_ACARA = "tb_acara";
 
     private static final String KEY_ID = "id";
     private static final String KEY_NAME = "name";
     private static final String KEY_EMAIL = "email";
     private static final String KEY_UID = "uid";
     private static final String KEY_CREATED_AT = "created_at";
+
+    private static final String KEY_ID_ACARA = "id";
+    private static final String KEY_UID_ACARA = "uid";
+    private static final String KEY_UID_USER = "uid_user";
+    private static final String KEY_IMG_ACARA = "img_acara";
+    private static final String KEY_JDL_ACARA = "jdl_acara";
+    private static final String KEY_ADMIN_ACARA = "admin_acara";
+    private static final String KEY_HRG_TIKET = "hrg_tiket";
+    private static final String KEY_TGL_ACARA = "tgl_acara";
+    private static final String KEY_JAM_ACARA = "jam_acara";
+    private static final String KEY_ACARA_CREATED_AT = "created_at";
 
     public SQLiteHandler(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

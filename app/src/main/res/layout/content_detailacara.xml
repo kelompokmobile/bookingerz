@@ -1,6 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:cv_dacara="http://schemas.android.com/tools"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_topdetailacara"
+        android:layout_width="match_parent"
+        android:layout_height="212dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_dadminacara"
+            android:textAlignment="viewStart"
+            android:textSize="12sp"
+            android:layout_below="@+id/tv_djdulacara"
+            android:layout_alignStart="@+id/tv_djdulacara" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="43dp"
+            android:layout_marginTop="20dp"
+            android:id="@+id/tv_djdulacara"
+            android:textStyle="normal|bold"
+            android:textAlignment="viewStart"
+            android:textSize="18sp"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/cv_dacara2" />
+
+        <android.support.v7.widget.CardView android:id="@+id/cv_dacara2"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="36dp"
+            android:layout_alignTop="@+id/tv_djdulacara"
+            android:layout_alignParentStart="true"
+            android:elevation="3dp"
+            cv_dacara:cardUseCompatPadding="true"
+            cv_dacara:cardCornerRadius="@dimen/card_album_radius">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border"
+                android:padding="5dp"
+                android:id="@+id/iv_poster" />
+
+        </android.support.v7.widget.CardView>
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_tglacara"
+            android:layout_marginTop="21dp"
+            android:layout_below="@+id/tv_dadminacara"
+            android:layout_alignStart="@+id/tv_dadminacara" />
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_jamacara"
+            android:layout_width="70dp"
+            android:layout_alignBaseline="@+id/tv_tglacara"
+            android:layout_alignBottom="@+id/tv_tglacara"
+            android:layout_toEndOf="@+id/tv_tglacara" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Button
+            android:text="@string/btn_booking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:id="@+id/btn_booking" />
+
+    </LinearLayout>
+
+    <android.support.v7.widget.CardView android:id="@+id/cv_dacara"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/card_margin"
+        android:elevation="3dp"
+        cv_dacara:cardUseCompatPadding="true"
+        cv_dacara:cardCornerRadius="@dimen/card_album_radius">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_ketacara"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"/>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
 
 </LinearLayout>

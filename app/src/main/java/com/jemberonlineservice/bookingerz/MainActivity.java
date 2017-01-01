@@ -51,12 +51,10 @@ public class MainActivity extends AppCompatActivity {
     private SessionManager session;
 
     private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter adapter;
 
     private Config config;
-    private Fragment fmdetailacara;
-    private Fragment fmcardview;
+    private GridLayoutManager mlayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,10 +64,9 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         recyclerView = (RecyclerView) findViewById(R.id.rv_cardacara);
-        RecyclerView.LayoutManager mlayoutManager = new GridLayoutManager(this, 2);
+        mlayoutManager = new GridLayoutManager(this, 3);
+        recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(mlayoutManager);
-        recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
         getData();
 
         db = new SQLiteHandler(getApplicationContext());
@@ -96,10 +93,11 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
-    public void showDetailAcara(View v){
-        Intent intent = new Intent(MainActivity.this, DetailAcaraActivity.class);
-        startActivity(intent);
-    }
+    // public void showDetailAcara(View v){
+    //     Intent intent = new Intent(MainActivity.this, DetailAcaraActivity.class);
+    //    intent.putExtra("uidacara", "test");
+    //    startActivity(intent);
+    // }
 
     private void getData(){
         class GetData extends AsyncTask<Void,Void,String>{
@@ -145,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showData(){
-        adapter = new CardAdapter(Config.judul,Config.penyelenggara, Config.bitmaps);
+        adapter = new CardAdapter(getApplicationContext(), Config.uidacara, Config.judul,Config.penyelenggara, Config.bitmaps);
         recyclerView.setAdapter(adapter);
     }
 
@@ -158,6 +156,7 @@ public class MainActivity extends AppCompatActivity {
 
             for(int i=0; i<array.length(); i++){
                 JSONObject j = array.getJSONObject(i);
+                Config.uidacara[i] = getUIDAcara(j);
                 Config.urls[i] = getUrls(j);
                 Config.judul[i] = getJudul(j);
                 Config.penyelenggara[i] = getPenyelenggara(j);
@@ -181,6 +180,16 @@ public class MainActivity extends AppCompatActivity {
         return judul;
     }
 
+    private String getUIDAcara(JSONObject j){
+        String uidacara = null;
+        try {
+            uidacara = j.getString(Config.TAG_UID_ACARA);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return uidacara;
+    }
+
     private String getPenyelenggara(JSONObject j){
         String penyelenggara = null;
         try {
@@ -199,52 +208,6 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return urls;
-    }
-
-    /**
-     * RecyclerView item decoration - give equal margin around grid item
-     */
-    public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
-
-        private int spanCount;
-        private int spacing;
-        private boolean includeEdge;
-
-        public GridSpacingItemDecoration(int spanCount, int spacing, boolean includeEdge) {
-            this.spanCount = spanCount;
-            this.spacing = spacing;
-            this.includeEdge = includeEdge;
-        }
-
-        @Override
-        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-            int position = parent.getChildAdapterPosition(view); // item position
-            int column = position % spanCount; // item column
-
-            if (includeEdge) {
-                outRect.left = spacing - column * spacing / spanCount; // spacing - column * ((1f / spanCount) * spacing)
-                outRect.right = (column + 1) * spacing / spanCount; // (column + 1) * ((1f / spanCount) * spacing)
-
-                if (position < spanCount) { // top edge
-                    outRect.top = spacing;
-                }
-                outRect.bottom = spacing; // item bottom
-            } else {
-                outRect.left = column * spacing / spanCount; // column * ((1f / spanCount) * spacing)
-                outRect.right = spacing - (column + 1) * spacing / spanCount; // spacing - (column + 1) * ((1f /    spanCount) * spacing)
-                if (position >= spanCount) {
-                    outRect.top = spacing; // item top
-                }
-            }
-        }
-    }
-
-    /**
-     * Converting dp to pixel
-     */
-    private int dpToPx(int dp) {
-        Resources r = getResources();
-        return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
 
     @Override
