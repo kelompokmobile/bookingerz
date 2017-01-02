@@ -26,6 +26,7 @@
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
                 app:srcCompat="@android:drawable/ic_menu_add"
+                android:background="?attr/actionModeSplitBackground"
                 android:id="@+id/btn_addposter"
                 android:contentDescription="@string/addacara_name" />
 
@@ -96,12 +97,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/btn_datepicker"
+                        android:background="?attr/actionModeSplitBackground"
+                        android:textColor="@color/white"
                         android:text="@string/btn_datepicker" />
 
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/btn_timepicker"
+                        android:background="?attr/actionModeSplitBackground"
+                        android:textColor="@color/white"
                         android:text="@string/btn_timepicker" />
 
                     <TextView
