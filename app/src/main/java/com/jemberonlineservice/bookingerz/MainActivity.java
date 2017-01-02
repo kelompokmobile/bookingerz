@@ -35,6 +35,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.jemberonlineservice.bookingerz.activity.AddAcaraActivity;
 import com.jemberonlineservice.bookingerz.activity.DetailAcaraActivity;
 import com.jemberonlineservice.bookingerz.activity.LoginActivity;
+import com.jemberonlineservice.bookingerz.activity.ProfileActivity;
 import com.jemberonlineservice.bookingerz.activity.SettingActivity;
 import com.jemberonlineservice.bookingerz.app.Config;
 import com.jemberonlineservice.bookingerz.helper.CardAdapter;
@@ -257,6 +258,10 @@ public class MainActivity extends AppCompatActivity {
                         navItemIndex = 0;
                         CURRENT_TAG = TAG_HOME;
                         break;
+                    case R.id.nav_profile:
+                        startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+                        drawer.closeDrawers();
+                        return true;
                     case R.id.nav_settings:
                         startActivity(new Intent(MainActivity.this, SettingActivity.class));
                         drawer.closeDrawers();

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:weightSum="1">
+
+    <EditText
+        android:id="@+id/tx_tanggallahir"
+        android:layout_width="match_parent"
+        android:inputType="textCapWords"
+        android:padding="10dp"
+        android:textColor="@color/input_register"
+        android:textColorHint="@color/input_register_hint"
+        android:text="@string/tx_tanggallahir"
+        android:maxLines="1"
+        android:layout_marginTop="89dp"
+        android:layout_below="@+id/tx_notelp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_height="55dp" />
+
+    <EditText
+        android:id="@+id/tx_namalengkap"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:padding="10dp"
+        android:inputType="textPersonName"
+        android:textColor="@color/input_register"
+        android:textColorHint="@color/input_register_hint"
+        android:text="@string/tx_namalengkap"
+        android:maxLines="1"
+        android:layout_marginTop="148dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/tx_email"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:id="@+id/tx_email"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:padding="10dp"
+        android:textColor="@color/input_register"
+        android:textColorHint="@color/input_register_hint"
+        android:text="@string/hint_email"
+        android:inputType="textEmailAddress"
+        android:maxLines="1"
+        android:layout_below="@+id/tx_notelp"
+        android:layout_marginTop="18dp"
+        android:layout_alignStart="@+id/tx_tanggallahir"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:id="@+id/tx_notelp"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:inputType="textPhonetic"
+        android:padding="10dp"
+        android:textColor="@color/input_register"
+        android:textColorHint="@color/input_register_hint"
+        android:text="@string/tx_notlp"
+        android:maxLines="1"
+        android:layout_below="@+id/tx_namalengkap"
+        android:layout_alignEnd="@+id/tx_namalengkap"
+        android:layout_marginTop="13dp"
+        android:layout_alignParentStart="true" />
+
+    <ImageButton
+        app:srcCompat="@android:drawable/ic_input_add"
+        android:id="@+id/btn_pp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="12dp"
+        android:layout_above="@+id/tx_namalengkap"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/btn_pp" />
+
+</RelativeLayout>

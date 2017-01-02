@@ -42,6 +42,10 @@
             android:name=".activity.DetailAcaraActivity"
             android:label="@string/detailacara_name"
             android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.ProfileActivity"
+            android:label="@string/profile_name"
+            android:launchMode="singleTop" />
     </application>
 
 </manifest>
