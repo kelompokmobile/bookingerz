@@ -46,6 +46,10 @@
             android:name=".activity.ProfileActivity"
             android:label="@string/profile_name"
             android:launchMode="singleTop" />
+        <activity
+            android:name=".activity.ETicketActivity"
+            android:label="@string/eticket_name"
+            android:launchMode="singleTop" />
     </application>
 
 </manifest>

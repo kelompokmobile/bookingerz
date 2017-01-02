@@ -8,6 +8,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,9 +42,12 @@ public class DetailAcaraActivity extends AppCompatActivity {
     private TextView tvketacara;
     private TextView tvtglacara;
     private TextView tvjamacara;
+    private Button btnenter;
     private ImageView ivposter;
     private Config config;
     private ProgressDialog pDialog;
+
+    String uidacara = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -50,6 +55,16 @@ public class DetailAcaraActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detailacara);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        btnenter = (Button) findViewById(R.id.btn_booking);
+        btnenter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(DetailAcaraActivity.this, ETicketActivity.class);
+                i.putExtra("uidacara", uidacara);
+                startActivity(i);
+            }
+        });
 
         getData();
     }
@@ -99,6 +114,7 @@ public class DetailAcaraActivity extends AppCompatActivity {
             ketacara = collegeData.getString(Config.TAG_KET_A);
             tglacara = collegeData.getString(Config.TAG_TGL_A);
             jamacara = collegeData.getString(Config.TAG_JAM_A);
+            uidacara = collegeData.getString(Config.TAG_UID_A);
             getImage(imgurl);
         } catch (JSONException e) {
             e.printStackTrace();

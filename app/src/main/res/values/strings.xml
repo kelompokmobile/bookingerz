@@ -4,6 +4,7 @@
     <string name="login_name">Login</string>
     <string name="setting_name">Setting</string>
     <string name="profile_name">Profile</string>
+    <string name="eticket_name">E-Ticket</string>
     <string name="detailacara_name">Detail Acara</string>
     <string name="addacara_name">Add Event</string>
     <string name="action_settings">Settings</string>
@@ -58,4 +59,5 @@
     <string name="action_clear_all">Clear All</string>
     <string name="action_mark_all_read">Mark All as Read</string>
     <string name="privacy_policy">Privacy Policy</string>
+    <string name="btn_saveticket">Save</string>
 </resources>

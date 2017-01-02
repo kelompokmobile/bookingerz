@@ -344,12 +344,6 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
-    // public void showDetailAcara(View v){
-    //     Intent intent = new Intent(MainActivity.this, DetailAcaraActivity.class);
-    //    intent.putExtra("uidacara", "test");
-    //    startActivity(intent);
-    // }
-
     private void getData(){
         class GetData extends AsyncTask<Void,Void,String>{
             ProgressDialog progressDialog;
