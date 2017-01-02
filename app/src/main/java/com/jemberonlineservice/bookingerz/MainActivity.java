@@ -1,5 +1,6 @@
 package com.jemberonlineservice.bookingerz;
 
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -10,6 +11,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -21,16 +25,20 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.content.Intent;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.jemberonlineservice.bookingerz.activity.AddAcaraActivity;
 import com.jemberonlineservice.bookingerz.activity.DetailAcaraActivity;
 import com.jemberonlineservice.bookingerz.activity.LoginActivity;
 import com.jemberonlineservice.bookingerz.activity.SettingActivity;
 import com.jemberonlineservice.bookingerz.app.Config;
 import com.jemberonlineservice.bookingerz.helper.CardAdapter;
+import com.jemberonlineservice.bookingerz.helper.CircleTransform;
 import com.jemberonlineservice.bookingerz.helper.GetBitmap;
 import com.jemberonlineservice.bookingerz.helper.SQLiteHandler;
 import com.jemberonlineservice.bookingerz.helper.SessionManager;
@@ -44,6 +52,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
+
+import static com.jemberonlineservice.bookingerz.R.id.toolbar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -56,12 +68,54 @@ public class MainActivity extends AppCompatActivity {
     private Config config;
     private GridLayoutManager mlayoutManager;
 
+    private NavigationView navigationView;
+    private DrawerLayout drawer;
+    private View navHeader;
+    private ImageView imgNavHeaderBg, imgProfile;
+    private TextView txtName, txtWebsite;
+    private Toolbar toolbar;
+    public static int navItemIndex = 0;
+
+    private static final String TAG_HOME = "home";
+    private static final String TAG_SETTINGS = "settings";
+    public static String CURRENT_TAG = TAG_HOME;
+
+    private String[] activityTitles;
+
+    private boolean shouldLoadHomeFragOnBackPress = true;
+    private Handler mHandler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+
+        // Navigation view header
+        navHeader = navigationView.getHeaderView(0);
+        txtName = (TextView) navHeader.findViewById(R.id.name);
+        txtWebsite = (TextView) navHeader.findViewById(R.id.website);
+        imgNavHeaderBg = (ImageView) navHeader.findViewById(R.id.img_header_bg);
+        imgProfile = (ImageView) navHeader.findViewById(R.id.img_profile);
+
+        // load toolbar titles from string resources
+        activityTitles = getResources().getStringArray(R.array.nav_item_activity_titles);
+
+        // load nav menu header data
+        loadNavHeader();
+
+        // initializing navigation menu
+        setUpNavigationView();
+
+        if (savedInstanceState == null) {
+            navItemIndex = 0;
+            CURRENT_TAG = TAG_HOME;
+            loadHomeFragment();
+        }
 
         recyclerView = (RecyclerView) findViewById(R.id.rv_cardacara);
         mlayoutManager = new GridLayoutManager(this, 3);
@@ -76,11 +130,203 @@ public class MainActivity extends AppCompatActivity {
         if (!session.isLoggedIn()) {
             logoutUser();
         }
+    }
+
+    private void loadNavHeader() {
+        db = new SQLiteHandler(getApplicationContext());
+
+        session = new SessionManager(getApplicationContext());
+
+        if (!session.isLoggedIn()) {
+            logoutUser();
+        }
 
         HashMap<String, String> user = db.getUserDetails();
 
         String name = user.get("name");
         String email = user.get("email");
+
+        // name, website
+        txtName.setText(name);
+        txtWebsite.setText(email);
+
+        // loading header background image
+        // Glide.with(this).load(urlNavHeaderBg)
+        //       .crossFade()
+        //        .diskCacheStrategy(DiskCacheStrategy.ALL)
+        //        .into(imgNavHeaderBg);
+
+        // Loading profile image
+        // Glide.with(this).load(urlProfileImg)
+        //        .crossFade()
+        //        .thumbnail(0.5f)
+        //        .bitmapTransform(new CircleTransform(this))
+        //        .diskCacheStrategy(DiskCacheStrategy.ALL)
+        //        .into(imgProfile);
+    }
+
+    private void loadHomeFragment() {
+        // selecting appropriate nav menu item
+        selectNavMenu();
+
+        // set toolbar title
+        setToolbarTitle();
+
+        // if user select the current navigation menu again, don't do anything
+        // just close the navigation drawer
+        if (getSupportFragmentManager().findFragmentByTag(CURRENT_TAG) != null) {
+            drawer.closeDrawers();
+
+            return;
+        }
+
+        // Sometimes, when fragment has huge data, screen seems hanging
+        // when switching between navigation menus
+        // So using runnable, the fragment is loaded with cross fade effect
+        // This effect can be seen in GMail app
+        final Runnable mPendingRunnable = new Runnable() {
+            @Override
+            public void run() {
+                // update the main content by replacing fragments
+                Fragment fragment = getHomeFragment();
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,
+                        android.R.anim.fade_out);
+                fragmentTransaction.replace(R.id.fragment, fragment, CURRENT_TAG);
+                fragmentTransaction.commitAllowingStateLoss();
+            }
+        };
+
+        // If mPendingRunnable is not null, then add to the message queue
+        if (mPendingRunnable != null) {
+            mHandler = new Handler() {
+                @Override
+                public void publish(LogRecord logRecord) {
+                    mHandler.publish((LogRecord) mPendingRunnable);
+                }
+
+                @Override
+                public void flush() {
+
+                }
+
+                @Override
+                public void close() throws SecurityException {
+
+                }
+            };
+        }
+
+        //Closing drawer on item click
+        drawer.closeDrawers();
+
+        // refresh toolbar menu
+        invalidateOptionsMenu();
+    }
+
+    private Fragment getHomeFragment() {
+        switch (navItemIndex) {
+            case 0:
+                MainActivityFragment homeFragment = new MainActivityFragment();
+                return homeFragment;
+            default:
+                return new MainActivityFragment();
+        }
+    }
+
+    private void setToolbarTitle() {
+        getSupportActionBar().setTitle(activityTitles[navItemIndex]);
+    }
+
+    private void selectNavMenu() {
+        navigationView.getMenu().getItem(navItemIndex).setChecked(true);
+    }
+
+    private void setUpNavigationView() {
+        //Setting Navigation View Item Selected Listener to handle the item click of the navigation menu
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+
+            // This method will trigger on item Click of navigation menu
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+
+                //Check to see which item was being clicked and perform appropriate action
+                switch (menuItem.getItemId()) {
+                    //Replacing the main content with ContentFragment Which is our Inbox View;
+                    case R.id.nav_home:
+                        navItemIndex = 0;
+                        CURRENT_TAG = TAG_HOME;
+                        break;
+                    case R.id.nav_settings:
+                        startActivity(new Intent(MainActivity.this, SettingActivity.class));
+                        drawer.closeDrawers();
+                        return true;
+                    // case R.id.nav_privacy_policy:
+                    //    startActivity(new Intent(MainActivity.this, PrivacyPolicyActivity.class));
+                    //    drawer.closeDrawers();
+                    //    return true;
+                    default:
+                        navItemIndex = 0;
+                }
+
+                //Checking if the item is in checked state or not, if not make it in checked state
+                if (menuItem.isChecked()) {
+                    menuItem.setChecked(false);
+                } else {
+                    menuItem.setChecked(true);
+                }
+                menuItem.setChecked(true);
+
+                loadHomeFragment();
+
+                return true;
+            }
+        });
+
+
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.openDrawer, R.string.closeDrawer) {
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                // Code here will be triggered once the drawer closes as we dont want anything to happen so we leave this blank
+                super.onDrawerClosed(drawerView);
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                // Code here will be triggered once the drawer open as we dont want anything to happen so we leave this blank
+                super.onDrawerOpened(drawerView);
+            }
+        };
+
+        //Setting the actionbarToggle to drawer layout
+        drawer.addDrawerListener(actionBarDrawerToggle);
+
+        //calling sync state is necessary or else your hamburger icon wont show up
+        actionBarDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawers();
+            return;
+        }
+
+        // This code loads home fragment when back key is pressed
+        // when user is in other fragment than home
+        if (shouldLoadHomeFragOnBackPress) {
+            // checking if user is on other navigation menu
+            // rather than home
+            if (navItemIndex != 0) {
+                navItemIndex = 0;
+                CURRENT_TAG = TAG_HOME;
+                loadHomeFragment();
+                return;
+            }
+        }
+
+        super.onBackPressed();
     }
 
     private void logoutUser() {
