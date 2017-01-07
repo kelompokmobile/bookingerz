@@ -60,4 +60,15 @@
     <string name="action_mark_all_read">Mark All as Read</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="btn_saveticket">Save</string>
+    <string name="tv_tgllahir">Tgl Lahir : </string>
+    <string name="tv_notelpll">NoTelp : </string>
+    <string name="tv_emailll">Email : </string>
+    <string name="tv_namall">Nama : </string>
+    <string name="Bookingerz">Bookingerz</string>
+    <string name="version">v1.0</string>
+    <string name="Dev">Dev</string>
+    <string name="RenoPutraAdiNugraha">Reno Putra Adi Nugraha</string>
+    <string name="BinarPutriPratiwi">Binar Putri Pratiwi</string>
+    <string name="AlanFitriyanto">Alan Fitriyanto</string>
+    <string name="SitiNuraisyirohFarianah">Siti Nuraisyiroh Farianah</string>
 </resources>

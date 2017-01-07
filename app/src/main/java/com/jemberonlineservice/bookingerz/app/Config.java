@@ -14,7 +14,7 @@ public class Config {
     public static String[] urls;
     public static String[] uidacara;
 
-    public static String URL_CARDVIEW = "http://192.168.42.248/bookingerz/android_cardview/datajson.php";
+    public static String URL_CARDVIEW = "http://10.0.2.2/bookingerz/android_cardview/datajson.php";
     public static final String TAG_UID_ACARA = "uid";
     public static final String TAG_JUDUL = "jdl_acara";
     public static final String TAG_PENYELENGGARA = "admin_acara";
@@ -33,6 +33,16 @@ public class Config {
     public static final String TAG_KET_A = "ket_acara";
     public static final String TAG_CREATED_AT_A = "created_at";
     public static final String TAG_JSON_ARRAY_A = "result";
+
+    public static final String TAG_ID_U = "id";
+    public static final String TAG_UID_U = "unique_id";
+    public static final String TAG_IMG_U = "img_user";
+    public static final String TAG_NAME_U = "name";
+    public static final String TAG_EMAIL_U = "email";
+    public static final String TAG_TGLLAHIR_U = "tgl_lahir";
+    public static final String TAG_NOTLP_U = "no_tlp";
+    public static final String TAG_JSON_OBJ_U = "result";
+    public static final String TAG_JSON_OBJ_U2 = "tag_json_obj";
 
     public Config(int i){
         judul = new String[i];

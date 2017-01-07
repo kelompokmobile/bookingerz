@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_login"
+    android:background="@color/colorPrimary"
     android:orientation="vertical"
     android:scrollbarAlwaysDrawVerticalTrack="true">
 
@@ -82,7 +82,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="22dp"
-                android:background="#ea4c88"
+                android:background="@color/colorAccent"
                 android:textAllCaps="false"
                 android:textColor="#fff"
                 android:textSize="18sp"
@@ -90,15 +90,4 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <ImageButton
-        android:id="@+id/user_profile_photo"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_below="@+id/login_title"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/user_profile_image_background"
-        android:elevation="4dp"
-        tools:targetApi="lollipop"
-        android:src="@mipmap/ic_launcher"/>
 </RelativeLayout>

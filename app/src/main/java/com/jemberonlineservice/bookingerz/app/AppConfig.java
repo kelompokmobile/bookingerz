@@ -7,8 +7,10 @@ import android.graphics.Bitmap;
  */
 
 public class AppConfig {
-    public static String URL_LOGIN = "http://192.168.42.248/bookingerz/android_login_api/login.php";
-    public static String URL_REGISTER = "http://192.168.42.248/bookingerz/android_login_api/register.php";
-    public static String URL_ADDACARA = "http://192.168.42.248/bookingerz/android_add_acara/add_acara.php";
-    public static String URL_GETACARA = "http://192.168.42.248/bookingerz/android_detail_acara/get_data.php?uid=";
+    public static String URL_LOGIN = "http://10.0.2.2/bookingerz/android_login_api/login.php";
+    public static String URL_REGISTER = "http://10.0.2.2/bookingerz/android_login_api/register.php";
+    public static String URL_ADDACARA = "http://10.0.2.2/bookingerz/android_add_acara/add_acara.php";
+    public static String URL_GETACARA = "http://10.0.2.2/bookingerz/android_detail_acara/get_data.php?uid=";
+    public static String URL_GETPROFIL = "http://10.0.2.2/bookingerz/android_select/slt_user.php?uid=";
+    public static String URL_EDITPROFIL = "http://10.0.2.2/bookingerz/android_user_management/user_m.php";
 }

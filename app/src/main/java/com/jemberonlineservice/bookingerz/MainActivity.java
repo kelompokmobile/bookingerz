@@ -2,44 +2,30 @@ package com.jemberonlineservice.bookingerz;
 
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.app.ProgressDialog;
-import android.content.res.Resources;
-import android.graphics.Rect;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.content.Intent;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.jemberonlineservice.bookingerz.activity.AddAcaraActivity;
-import com.jemberonlineservice.bookingerz.activity.DetailAcaraActivity;
 import com.jemberonlineservice.bookingerz.activity.LoginActivity;
 import com.jemberonlineservice.bookingerz.activity.ProfileActivity;
 import com.jemberonlineservice.bookingerz.activity.SettingActivity;
 import com.jemberonlineservice.bookingerz.app.Config;
 import com.jemberonlineservice.bookingerz.helper.CardAdapter;
-import com.jemberonlineservice.bookingerz.helper.CircleTransform;
 import com.jemberonlineservice.bookingerz.helper.GetBitmap;
 import com.jemberonlineservice.bookingerz.helper.SQLiteHandler;
 import com.jemberonlineservice.bookingerz.helper.SessionManager;
@@ -55,8 +41,6 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.logging.Handler;
 import java.util.logging.LogRecord;
-
-import static com.jemberonlineservice.bookingerz.R.id.toolbar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -259,7 +243,24 @@ public class MainActivity extends AppCompatActivity {
                         CURRENT_TAG = TAG_HOME;
                         break;
                     case R.id.nav_profile:
-                        startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+                        db = new SQLiteHandler(getApplicationContext());
+
+                        session = new SessionManager(getApplicationContext());
+
+                        if (!session.isLoggedIn()) {
+                            logoutUser();
+                        }
+
+                        HashMap<String, String> user = db.getUserDetails();
+
+                        String iduser = user.get("uid");
+                        String name = user.get("name");
+                        String email = user.get("email");
+                        Intent i = new Intent(MainActivity.this, ProfileActivity.class);
+                        i.putExtra("uid", iduser);
+                        i.putExtra("name", name);
+                        i.putExtra("email", email);
+                        startActivity(i);
                         drawer.closeDrawers();
                         return true;
                     case R.id.nav_settings:
