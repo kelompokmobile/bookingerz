@@ -73,25 +73,29 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
-                    android:text="@string/RenoPutraAdiNugraha"/>
+                    android:text="@string/RenoPutraAdiNugraha"
+                    android:textAlignment="center" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
-                    android:text="@string/BinarPutriPratiwi"/>
+                    android:text="@string/BinarPutriPratiwi"
+                    android:textAlignment="center" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
-                    android:text="@string/AlanFitriyanto"/>
+                    android:text="@string/AlanFitriyanto"
+                    android:textAlignment="center" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
-                    android:text="@string/SitiNuraisyirohFarianah"/>
+                    android:text="@string/SitiNuraisyirohFarianah"
+                    android:textAlignment="center" />
 
 
             </LinearLayout>

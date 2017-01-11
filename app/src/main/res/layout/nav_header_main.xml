@@ -19,27 +19,36 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:padding="@dimen/activity_horizontal_margin">
 
         <ImageView
             android:id="@+id/img_profile"
-            android:layout_width="@dimen/profile_width"
-            android:layout_height="@dimen/profile_height"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:paddingTop="@dimen/nav_header_vertical_spacing"
             app:srcCompat="@android:drawable/sym_def_app_icon" />
 
-        <TextView
-            android:id="@+id/name"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/nav_header_vertical_spacing"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+            android:layout_marginStart="20dp"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/website"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:paddingTop="@dimen/nav_header_vertical_spacing"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+            <TextView
+                android:id="@+id/website"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
 
     </LinearLayout>
 </RelativeLayout>

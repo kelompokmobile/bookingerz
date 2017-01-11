@@ -1,5 +1,8 @@
 package com.jemberonlineservice.bookingerz;
 
+import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -7,25 +10,40 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.content.Intent;
+import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.jemberonlineservice.bookingerz.activity.AddAcaraActivity;
 import com.jemberonlineservice.bookingerz.activity.LoginActivity;
 import com.jemberonlineservice.bookingerz.activity.ProfileActivity;
 import com.jemberonlineservice.bookingerz.activity.SettingActivity;
+import com.jemberonlineservice.bookingerz.app.AppConfig;
 import com.jemberonlineservice.bookingerz.app.Config;
 import com.jemberonlineservice.bookingerz.helper.CardAdapter;
+import com.jemberonlineservice.bookingerz.helper.CircleTransform;
 import com.jemberonlineservice.bookingerz.helper.GetBitmap;
 import com.jemberonlineservice.bookingerz.helper.SQLiteHandler;
 import com.jemberonlineservice.bookingerz.helper.SessionManager;
@@ -35,8 +53,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.logging.Handler;
@@ -69,6 +89,10 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean shouldLoadHomeFragOnBackPress = true;
     private Handler mHandler;
+
+    AlertDialog.Builder dialog;
+    LayoutInflater inflater;
+    View dialogView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,9 +139,26 @@ public class MainActivity extends AppCompatActivity {
         if (!session.isLoggedIn()) {
             logoutUser();
         }
+
+        HashMap<String, String> user = db.getUserDetails();
+
+        String uidu = user.get("uid");
+        String imguserx = user.get("img_user");
+        String namax = user.get("name");
+        String emailx = user.get("email");
+
+        txtName.setText(namax);
+        txtWebsite.setText(emailx);
     }
 
     private void loadNavHeader() {
+
+        // loading header background image
+        // Glide.with(this).load(urlNavHeaderBg)
+        //       .crossFade()
+        //        .diskCacheStrategy(DiskCacheStrategy.ALL)
+        //        .into(imgNavHeaderBg);
+
         db = new SQLiteHandler(getApplicationContext());
 
         session = new SessionManager(getApplicationContext());
@@ -128,26 +169,20 @@ public class MainActivity extends AppCompatActivity {
 
         HashMap<String, String> user = db.getUserDetails();
 
-        String name = user.get("name");
-        String email = user.get("email");
+        String uidu = user.get("uid");
+        String imguserx = user.get("img_user");
+        String namax = user.get("name");
+        String emailx = user.get("email");
 
-        // name, website
-        txtName.setText(name);
-        txtWebsite.setText(email);
-
-        // loading header background image
-        // Glide.with(this).load(urlNavHeaderBg)
-        //       .crossFade()
-        //        .diskCacheStrategy(DiskCacheStrategy.ALL)
-        //        .into(imgNavHeaderBg);
-
+        txtName.setText(namax);
+        txtWebsite.setText(emailx);
         // Loading profile image
-        // Glide.with(this).load(urlProfileImg)
-        //        .crossFade()
-        //        .thumbnail(0.5f)
-        //        .bitmapTransform(new CircleTransform(this))
-        //        .diskCacheStrategy(DiskCacheStrategy.ALL)
-        //        .into(imgProfile);
+        Glide.with(this).load(imguserx)
+                .crossFade()
+                .thumbnail(0.5f)
+                .bitmapTransform(new CircleTransform(this))
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(imgProfile);
     }
 
     private void loadHomeFragment() {
@@ -267,10 +302,9 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(new Intent(MainActivity.this, SettingActivity.class));
                         drawer.closeDrawers();
                         return true;
-                    // case R.id.nav_privacy_policy:
-                    //    startActivity(new Intent(MainActivity.this, PrivacyPolicyActivity.class));
-                    //    drawer.closeDrawers();
-                    //    return true;
+                    case R.id.nav_about_us:
+                        DialogForm("KELUAR");
+                        return true;
                     default:
                         navItemIndex = 0;
                 }
@@ -310,6 +344,24 @@ public class MainActivity extends AppCompatActivity {
 
         //calling sync state is necessary or else your hamburger icon wont show up
         actionBarDrawerToggle.syncState();
+    }
+
+    private void DialogForm(String button) {
+        dialog = new AlertDialog.Builder(MainActivity.this);
+        inflater = getLayoutInflater();
+        dialogView = inflater.inflate(R.layout.form_about, null);
+        dialog.setView(dialogView);
+        dialog.setCancelable(true);
+
+        dialog.setPositiveButton(button, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
 
     @Override
@@ -459,6 +511,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
         return true;
     }
 

@@ -14,6 +14,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -23,8 +24,10 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +35,8 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.jemberonlineservice.bookingerz.R;
@@ -40,6 +45,8 @@ import com.jemberonlineservice.bookingerz.app.AppController;
 import com.jemberonlineservice.bookingerz.app.Config;
 import com.jemberonlineservice.bookingerz.fragment.ProfileTabDetailFragment;
 import com.jemberonlineservice.bookingerz.fragment.ProfileTabInAcaraFragment;
+import com.jemberonlineservice.bookingerz.helper.ListAdapter;
+import com.jemberonlineservice.bookingerz.helper.ListItem;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -55,6 +62,7 @@ import java.util.List;
 import java.util.Map;
 
 import static android.R.attr.bitmap;
+import static android.R.attr.theme;
 
 /**
  * Created by vmmod on 1/2/2017.
@@ -74,6 +82,10 @@ public class ProfileActivity extends AppCompatActivity {
     TextView dttgllahir;
     TextView dtnotlp;
     ImageButton adddp;
+    ListView list;
+    ListAdapter listAdapter;
+    List<ListItem> itemList = new ArrayList<ListItem>();
+    SwipeRefreshLayout swipe;
 
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
@@ -100,13 +112,121 @@ public class ProfileActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        /* viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setupWithViewPager(viewPager); */
+
+        list = (ListView) findViewById(R.id.lv_useracara);
+        swipe   = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
+        listAdapter = new ListAdapter(ProfileActivity.this, itemList);
+        list.setAdapter(listAdapter);
+
+        swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                itemList.clear();
+                listAdapter.notifyDataSetChanged();
+                getDataAcara();
+            }
+        });
+
+        swipe.post(new Runnable() {
+            @Override
+            public void run() {
+                swipe.setRefreshing(true);
+                itemList.clear();
+                listAdapter.notifyDataSetChanged();
+                getDataAcara();
+            }
+        });
+
+        list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+            @Override
+            public boolean onItemLongClick(final AdapterView<?> parent, View view,
+                                           final int position, long id) {
+                // TODO Auto-generated method stub
+                final String uidx = itemList.get(position).getId();
+
+                final CharSequence[] dialogitem = {"Edit", "Delete"};
+                dialog = new AlertDialog.Builder(ProfileActivity.this);
+                dialog.setCancelable(true);
+                dialog.setItems(dialogitem, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // TODO Auto-generated method stub
+                        switch (which) {
+                            case 0:
+                                Intent i = new Intent(ProfileActivity.this, UpdateAcaraActivity.class);
+                                i.putExtra("uid", uidx);
+                                startActivity(i);
+                                break;
+                            case 1:
+                                Toast.makeText(ProfileActivity.this, "HAPUS", Toast.LENGTH_SHORT).show();
+                                break;
+                        }
+                    }
+                }).show();
+                return false;
+            }
+        });
 
         getData();
+    }
+
+    private void getDataAcara(){
+        itemList.clear();
+        listAdapter.notifyDataSetChanged();
+        swipe.setRefreshing(true);
+
+        Intent i = getIntent();
+        String uid = i.getStringExtra("uid");
+
+        String urlsx = AppConfig.URL_GETUSERACARA + uid;
+
+        // membuat request JSON
+        JsonArrayRequest jArr = new JsonArrayRequest(urlsx, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                Log.d(TAG, response.toString());
+
+                // Parsing json
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        JSONObject obj = response.getJSONObject(i);
+
+                        ListItem item = new ListItem();
+
+                        item.setId(obj.getString(Config.TAG_UID_A));
+                        item.setUrls(obj.getString(Config.TAG_IMG_A));
+                        item.setJudul(obj.getString(Config.TAG_JDL_A));
+                        item.setPenyelenggara(obj.getString(Config.TAG_ADMIN_A));
+
+
+                        // menambah item ke array
+                        itemList.add(item);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                // notifikasi adanya perubahan data pada adapter
+                listAdapter.notifyDataSetChanged();
+                swipe.setRefreshing(false);
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+            }
+        });
+
+        // menambah request ke request queue
+        AppController.getInstance().addToRequestQueue(jArr);
     }
 
     private void DialogForm(final String idx, final String uidx, String namax, String emailx, final String passwordx, String tgllahirx, String notlpx, String button) {
@@ -275,11 +395,6 @@ public class ProfileActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        namaL = (TextView) findViewById(R.id.tx_namalengkap);
-        namaL.setText(nama);
-        emailL = (TextView) findViewById(R.id.tx_email);
-        emailL.setText(email);
-
         dtnama = (TextView) findViewById(R.id.tx_namall);
         dtnama.setText(nama);
         dtemail = (TextView) findViewById(R.id.tx_emailll);
@@ -333,7 +448,7 @@ public class ProfileActivity extends AppCompatActivity {
         newFragment.show(getFragmentManager(), "datePicker");
     } */
 
-    private void setupViewPager(ViewPager viewPager){
+    /* private void setupViewPager(ViewPager viewPager){
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new ProfileTabDetailFragment(), "Detail");
         adapter.addFragment(new ProfileTabInAcaraFragment(), "Acara");
@@ -367,7 +482,7 @@ public class ProfileActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
         }
-    }
+    } */
 
     private void UpdateUser(final String id,
                             final String unique_id,

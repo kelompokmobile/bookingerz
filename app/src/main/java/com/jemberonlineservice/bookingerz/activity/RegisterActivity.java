@@ -119,11 +119,12 @@ public class RegisterActivity extends AppCompatActivity {
                         String uid = jObj.getString("uid");
 
                         JSONObject user = jObj.getJSONObject("user");
+                        String imguser = user.getString("img_user");
                         String name = user.getString("name");
                         String email = user.getString("email");
                         String created_at = user
                                 .getString("created_at");
-                        db.addUser(name, email, uid, created_at);
+                        db.addUser(imguser, name, email, uid, created_at);
 
                         Toast.makeText(getApplicationContext(), "User successfully registered. Try login now!", Toast.LENGTH_LONG).show();
 

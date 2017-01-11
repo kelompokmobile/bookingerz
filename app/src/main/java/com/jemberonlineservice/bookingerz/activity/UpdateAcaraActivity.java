@@ -31,9 +31,6 @@ import com.jemberonlineservice.bookingerz.fragment.TimePickerFragment;
 import com.jemberonlineservice.bookingerz.helper.SQLiteHandler;
 import com.jemberonlineservice.bookingerz.helper.SessionManager;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
@@ -43,10 +40,10 @@ import java.util.Map;
  * Created by vmmod on 12/14/2016.
  */
 
-public class AddAcaraActivity extends AppCompatActivity {
+public class UpdateAcaraActivity extends AppCompatActivity {
 
     private ProgressDialog pDialog;
-    private static final String TAG = AddAcaraActivity.class.getSimpleName();
+    private static final String TAG = UpdateAcaraActivity.class.getSimpleName();
     private EditText txjudulacara;
     private EditText txpenyelenggara;
     private EditText txhargatiket;
@@ -62,7 +59,7 @@ public class AddAcaraActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_addacara);
+        setContentView(R.layout.activity_updateacara);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -97,6 +94,8 @@ public class AddAcaraActivity extends AppCompatActivity {
         submitAcara.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent i = getIntent();
+                String uid = i.getStringExtra("uid");
                 String jdlacara = txjudulacara.getText().toString().trim();
                 String adminacara = txpenyelenggara.getText().toString().trim();
                 String hrgtiket = txhargatiket.getText().toString().trim();
@@ -109,9 +108,9 @@ public class AddAcaraActivity extends AppCompatActivity {
                 HashMap<String, String> user = db.getUserDetails();
                 String uiduser = user.get("uid");
 
-                if (!uiduser.isEmpty() && !imgacara.isEmpty() && !jdlacara.isEmpty() && !adminacara.isEmpty() && !hrgtiket.isEmpty() && !tglacara.isEmpty() && !jamacara.isEmpty()
+                if (!uid.isEmpty() && !uiduser.isEmpty() && !imgacara.isEmpty() && !jdlacara.isEmpty() && !adminacara.isEmpty() && !hrgtiket.isEmpty() && !tglacara.isEmpty() && !jamacara.isEmpty()
                         && !ketacara.isEmpty()) {
-                    registerAcara(uiduser, imgacara, jdlacara, adminacara, hrgtiket, tglacara, jamacara, ketacara);
+                    updateAcara(uid, uiduser, imgacara, jdlacara, adminacara, hrgtiket, tglacara, jamacara, ketacara);
                 } else {
                     Toast.makeText(getApplicationContext(),
                             "Please enter your details!", Toast.LENGTH_LONG)
@@ -168,7 +167,8 @@ public class AddAcaraActivity extends AppCompatActivity {
         return encodedImage;
     }
 
-    private void registerAcara( final String uiduser,
+    private void updateAcara( final String uid,
+                                final String uiduser,
                                 final String imgacara,
                               final String jdlacara,
                               final String adminacara,
@@ -183,13 +183,13 @@ public class AddAcaraActivity extends AppCompatActivity {
         showDialog();
 
         StringRequest strReq = new StringRequest(Request.Method.POST,
-                AppConfig.URL_ADDACARA, new Response.Listener<String>() {
+                AppConfig.URL_EDITACARA, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
                 Log.d(TAG, "Register Response: " + response.toString());
                 hideDialog();
-                Intent intent = new Intent(AddAcaraActivity.this, MainActivity.class);
+                Intent intent = new Intent(UpdateAcaraActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -206,6 +206,7 @@ public class AddAcaraActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
+                params.put("uid", uid);
                 params.put("uiduser", uiduser);
                 params.put("imgacara", imgacara);
                 params.put("jdlacara", jdlacara);

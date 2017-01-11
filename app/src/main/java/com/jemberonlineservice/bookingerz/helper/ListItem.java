@@ -7,10 +7,19 @@ import android.graphics.Bitmap;
  */
 
 public class ListItem {
+    private String id;
     private String judul;
     private String penyelenggara;
     private Bitmap poster;
     private String urls;
+
+    public String getId(){
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getJudul(){
         return judul;

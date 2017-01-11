@@ -5,10 +5,12 @@
     <string name="setting_name">Setting</string>
     <string name="profile_name">Profile</string>
     <string name="eticket_name">E-Ticket</string>
+    <string name="update_acara">Update Acara</string>
     <string name="detailacara_name">Detail Acara</string>
     <string name="addacara_name">Add Event</string>
     <string name="action_settings">Settings</string>
     <string name="action_logout">Logout</string>
+    <string name="action_search">Search</string>
 
     // RegisterLogin
     <string name="hint_email">Email</string>

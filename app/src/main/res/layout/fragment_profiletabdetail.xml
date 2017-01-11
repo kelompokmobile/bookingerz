@@ -10,83 +10,140 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:layout_marginTop="50dp"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_namall"
+                    android:drawableStart="@drawable/ic_face_black_24dp"
+                    android:textSize="24sp" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="120dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/tv_namall"
-                        android:id="@+id/tv_namall"
-                        android:textSize="24sp" />
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textSize="24sp"
                         android:id="@+id/tx_namall" />
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#d9d9d9" />
+
                 </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_emailll"
+                    android:drawableStart="@drawable/ic_contact_mail_black_24dp"
+                    android:textSize="24sp" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="120dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/tv_emailll"
-                        android:id="@+id/tv_emailll"
-                        android:textSize="24sp" />
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textSize="24sp"
                         android:id="@+id/tx_emailll" />
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#d9d9d9" />
+
                 </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp"
+                    android:drawableStart="@drawable/ic_contact_phone_black_24dp"
+                    android:id="@+id/tv_notlpll" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="120dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/tv_tgllahir"
-                        android:textSize="24sp"
-                        android:id="@+id/tv_tgllahirll" />
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/tx_tgllahirll" />
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="120dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/tv_notelpll"
                         android:textSize="24sp"
-                        android:id="@+id/tv_notlpll" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:id="@+id/tx_notelpll" />
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#d9d9d9" />
+
                 </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_today_black_24dp"
+                    android:textSize="24sp"
+                    android:id="@+id/tv_tgllahirll" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="24sp"
+                        android:id="@+id/tx_tgllahirll" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#d9d9d9" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
         </LinearLayout>
 </RelativeLayout>
